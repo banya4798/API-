@@ -28,3 +28,23 @@ public class TestDAO extends EgovAbstractDAO {
 	}
 
 }
+
+---------------------------------------------------------------------------
+@ ibatis(xml)
+
+<insert id="insertTestData">
+		insert into tuyv(
+		dstrct_type,
+		pklt_nm,
+		prk_cntom,
+		utztn_hr,
+		dt
+		) 
+		values (
+		#dstrct_type#,
+		#pklt_nm#,
+		#prk_cntom#,
+		#utztn_hr#,
+		#dt#
+		)
+	</insert>
