@@ -1,0 +1,50 @@
+package PLT.dao;
+
+import java.util.Map;
+
+import org.springframework.stereotype.Repository;
+
+import PLT.vo.testVO;
+import egovframework.rte.psl.dataaccess.EgovAbstractDAO;
+
+@Repository("testDAO")
+public class TestDAO extends EgovAbstractDAO {
+
+	public void insertTestData(Map<String, Object> data) {
+		String DSTRCT_TYPE = (String) data.get("DSTRCT_TYPE");
+		String PKLT_NM = (String) data.get("PKLT_NM");
+		Double PRK_CNTOM = (Double) data.get("PRK_CNTOM");
+		Double UTZTN_HR = (Double) data.get("UTZTN_HR");
+		String DT = (String) data.get("DT");
+
+		testVO tvo = new testVO();
+		tvo.setDstrct_type(DSTRCT_TYPE);
+		tvo.setPklt_nm(PKLT_NM);
+		tvo.setPrk_cntom(PRK_CNTOM);
+		tvo.setUtztn_hr(UTZTN_HR);
+		tvo.setDt(DT);
+
+		insert("insertTestData", tvo);
+	}
+
+}
+
+---------------------------------------------------------------------------
+@ ibatis(xml)
+
+<insert id="insertTestData">
+		insert into tuyv(
+		dstrct_type,
+		pklt_nm,
+		prk_cntom,
+		utztn_hr,
+		dt
+		) 
+		values (
+		#dstrct_type#,
+		#pklt_nm#,
+		#prk_cntom#,
+		#utztn_hr#,
+		#dt#
+		)
+	</insert>

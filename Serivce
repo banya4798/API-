@@ -1,0 +1,5 @@
+package PLT.service;
+
+public interface TestService {
+	void testAPI(String jsonData) throws Exception;
+}

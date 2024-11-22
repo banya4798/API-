@@ -1,0 +1,47 @@
+package PLT.service.impl;
+
+import java.util.List;
+import java.util.Map;
+
+import javax.annotation.Resource;
+
+import org.springframework.stereotype.Service;
+
+import com.fasterxml.jackson.databind.ObjectMapper;
+
+import PLT.dao.TestDAO;
+import PLT.service.TestService;
+
+@Service("testService")
+public class TestServiceImpl implements TestService {
+
+	@Resource(name = "testDAO")
+	private TestDAO testDAO;
+
+	private final ObjectMapper mapper = new ObjectMapper();
+
+	@Override
+	public void testAPI(String jsonData) {
+
+		try {
+			Map<String, Object> jsonMap = mapper.readValue(jsonData, Map.class);
+			System.out.println("******************************************************");
+			System.out.println("******************************************************");
+			System.out.println("String으로 변환된 json을 map으로 변환" + jsonMap);
+			System.out.println("******************************************************");
+			System.out.println("******************************************************");
+
+			Map<String, Object> tbUseYearstatusView = (Map<String, Object>) jsonMap.get("TbUseYearstatusView");
+			List<Map<String, Object>> rowData = (List<Map<String, Object>>) tbUseYearstatusView.get("row");
+			for (Map<String, Object> data : rowData) {
+				System.out.println(data);
+				System.out.println("******");
+				testDAO.insertTestData(data);
+			}
+		} catch (Exception e) {
+			// 예외 처리: 로깅 또는 사용자에게 에러 메시지 전달
+			System.err.println("Error processing JSON data: " + e.getMessage());
+		}
+
+	}
+}
